@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= service? 'Redaktə' : 'Yeni' %> Xidmət</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box }
+        body { font-family: 'Quicksand', sans-serif; background: #0a0a0a; color: #fff; padding: 40px }
+        .box { max-width: 600px; margin: 0 auto; background: rgba(255, 255, 255, .03); border: 1px solid rgba(255, 255, 255, .1); border-radius: 16px; padding: 30px }
+        h2 { color: #00ff88; margin-bottom: 20px }
+        .form-group { margin-bottom: 18px }
+        label { display: block; margin-bottom: 6px; color: #aaa; font-size: 14px }
+        input { width: 100%; padding: 12px; background: rgba(255, 255, 255, .05); border: 1px solid rgba(255, 255, 255, .1); border-radius: 8px; color: #fff; font-size: 15px }
+        input:focus { outline: none; border-color: #00ff88 }
+        .btn { padding: 12px 24px; background: #00ff88; color: #000; border: none; border-radius: 8px; font-weight: 600; cursor: pointer }
+        .checkbox { display: flex; align-items: center; gap: 8px; margin-top: 10px }
+        input[type=checkbox] { width: auto }
+        .hint { font-size: 12px; color: #666; margin-top: 4px }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h2><%= service? 'Xidməti Redaktə Et' : 'Yeni Xidmət Əlavə Et' %></h2>
+        <form method="POST">
+            <div class="form-group">
+                <label>Platform</label>
+                <input type="text" name="platform" list="platforms" value="<%= service? service.platform : '' %>" placeholder="tiktok" required>
+                <datalist id="platforms">
+                    <option value="tiktok">
+                    <option value="instagram">
+                    <option value="youtube">
+                    <option value="telegram">
+                    <option value="facebook">
+                    <option value="twitter">
+                    <option value="threads">
+                    <option value="spotify">
+                    <option value="twitch">
+                </datalist>
+                <div class="hint">kiçik hərflə yaz: tiktok, instagram, youtube...</div>
+            </div>
+            
+            <div class="form-group">
+                <label>Ad (məs: 1000 İzləyici)</label>
+                <input type="text" name="name" value="<%= service? service.name : '' %>" required>
+            </div>
+            
+            <div class="form-group">
+                <label>Qiymət (₼)</label>
+                <input type="number" step="0.01" name="price" value="<%= service? service.price : '' %>" required>
+            </div>
+            
+            <div class="form-group">
+                <label>Link (boş qoya bilərsən)</label>
+                <input type="text" name="link" value="<%= service? service.link : '' %>" placeholder="/checkout?tiktok-1000">
+            </div>
+            
+            <div class="form-group">
+                <label>Sıra (0 = ən üst)</label>
+                <input type="number" name="sort_order" value="<%= service? service.sort_order : 0 %>">
+            </div>
+            
+            <div class="checkbox">
+                <input type="checkbox" name="is_active" id="active" <%=!service || service.is_active? 'checked' : '' %>>
+                <label for="active">Aktiv</label>
+            </div>
+            
+            <br>
+            <button type="submit" class="btn">Yadda Saxla</button>
+            <a href="/admin/services" style="margin-left:10px;color:#aaa">Geri</a>
+        </form>
+    </div>
+</body>
+</html>

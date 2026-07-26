@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sifarişlər | Admin Panel</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+            color: #1f2937;
+            overflow-x: hidden;
+        }
+
+        /* --- SIDEBAR --- */
+        .sidebar {
+            width: 260px;
+            height: 100vh;
+            position: fixed;
+            background: #111827;
+            color: #9ca3af;
+            transition: 0.3s;
+            z-index: 1000;
+        }
+        .sidebar-brand {
+            padding: 24px 20px;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid #1f2937;
+            margin-bottom: 20px;
+        }
+        .sidebar-brand span { color: #3b82f6; }
+        .nav-item { margin-bottom: 4px; }
+        .nav-link {
+            color: #9ca3af;
+            padding: 12px 20px;
+            border-radius: 8px;
+            margin: 0 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            text-decoration: none;
+        }
+        .nav-link:hover, .nav-link.active {
+            background: #1f2937;
+            color: #ffffff;
+        }
+        .nav-link i { font-size: 1.2rem; }
+
+        /* --- MAIN CONTENT & HEADER --- */
+        .main-content {
+            margin-left: 260px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .top-header {
+            background: #ffffff;
+            padding: 16px 32px;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+        }
+        .avatar {
+            width: 36px;
+            height: 36px;
+            background: #3b82f6;
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        /* --- CARDS & TABLES --- */
+        .content-body { padding: 32px; }
+        .card {
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            background: #ffffff;
+        }
+        .table { margin-bottom: 0; }
+        .table th {
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+            color: #6b7280;
+            border-bottom: 1px solid #f3f4f6;
+            padding: 16px;
+            background-color: #f9fafb;
+        }
+        .table td {
+            padding: 16px;
+            vertical-align: middle;
+            border-bottom: 1px solid #f3f4f6;
+            color: #374151;
+            font-size: 0.875rem;
+        }
+        .table tbody tr:hover { background-color: #f9fafb; }
+
+        /* --- SOFT BADGES --- */
+        .badge-soft {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.75rem;
+        }
+        .badge-soft-warning { background-color: #fef3c7; color: #d97706; }
+        .badge-soft-info { background-color: #e0f2fe; color: #0284c7; }
+        .badge-soft-success { background-color: #dcfce3; color: #166534; }
+        .badge-soft-danger { background-color: #fee2e2; color: #b91c1c; }
+        .badge-soft-dark { background-color: #f3f4f6; color: #1f2937; }
+
+        /* --- FILTERS --- */
+        .filter-group .btn {
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            padding: 6px 16px;
+            border: none;
+        }
+        .filter-group .btn.active {
+            background-color: #1f2937;
+            color: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .filter-group .btn:not(.active) {
+            background-color: #f3f4f6;
+            color: #4b5563;
+        }
+        .filter-group .btn:not(.active):hover { background-color: #e5e7eb; }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            .sidebar { transform: translateX(-100%); }
+            .main-content { margin-left: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <i class="ri-fire-fill text-primary me-2"></i>TikTok<span>Panel</span>
+        </div>
+        <div class="nav flex-column">
+            <div class="nav-item">
+                <a href="/admin" class="nav-link"><i class="ri-dashboard-line"></i> İdarə Paneli</a>
+            </div>
+            <div class="nav-item">
+                <a href="/admin/services" class="nav-link"><i class="ri-server-line"></i> Xidmətlər</a>
+            </div>
+            <div class="nav-item">
+                <a href="/admin/orders" class="nav-link active"><i class="ri-shopping-cart-2-line"></i> Sifarişlər</a>
+            </div>
+        </div>
+    </aside>
+
+    <div class="main-content">
+        
+        <header class="top-header">
+            <div>
+                <h4 class="mb-0 fw-bold">Sifarişlərin İdarəsi</h4>
+                <small class="text-muted">Bütün ödənişlər və API sorğuları buradan tənzimlənir</small>
+            </div>
+            <div class="d-flex align-items-center gap-4">
+                <div class="user-profile">
+                    <div class="avatar"><%= username.charAt(0).toUpperCase() %></div>
+                    <span><%= username %></span>
+                </div>
+                <a href="/admin/logout" class="btn btn-light btn-sm text-danger border-0 shadow-sm rounded-circle p-2" title="Çıxış et">
+                    <i class="ri-logout-box-r-line fs-5"></i>
+                </a>
+            </div>
+        </header>
+
+        <div class="content-body">
+            
+            <% if (query.updated) { %>
+                <div class="alert alert-success alert-dismissible fade show border-0 shadow-sm" role="alert">
+                    <i class="ri-checkbox-circle-fill me-2"></i> Status uğurla yeniləndi!
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            <% } %>
+            <% if (query.synced) { %>
+                <div class="alert alert-info alert-dismissible fade show border-0 shadow-sm" role="alert">
+                    <i class="ri-refresh-line me-2"></i> TurkAPI ilə sinxronizasiya tamamlandı.
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            <% } %>
+            <% if (query.retried) { %>
+                <div class="alert alert-success alert-dismissible fade show border-0 shadow-sm" role="alert">
+                    <i class="ri-send-plane-fill me-2"></i> Sifariş yenidən TurkAPI-yə uğurla göndərildi!
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            <% } %>
+            <% if (query.error) { %>
+                <div class="alert alert-danger alert-dismissible fade show border-0 shadow-sm" role="alert">
+                    <i class="ri-error-warning-fill me-2"></i> Xəta baş verdi! 
+                    <% if(query.error === 'api_retry_failed') { %> (TurkAPI sifarişi qəbul etmədi. Balansı yoxlayın) <% } else { %> (Kod: <%= query.error %>) <% } %>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            <% } %>
+
+            <div class="card mb-4">
+                <div class="card-body py-3 px-4 d-flex align-items-center gap-3 flex-wrap">
+                    <span class="text-muted fw-semibold" style="font-size: 0.85rem; text-transform: uppercase;">Filtrlə:</span>
+                    <div class="filter-group d-flex gap-2 flex-wrap">
+                        <a href="/admin/orders" class="btn <%= !statusFilter ? 'active' : '' %>">Hamısı</a>
+                        <a href="/admin/orders?status=pending" class="btn <%= statusFilter === 'pending' ? 'active' : '' %>">Gözləyən</a>
+                        <a href="/admin/orders?status=processing" class="btn <%= statusFilter === 'processing' ? 'active' : '' %>">İcrada</a>
+                        <a href="/admin/orders?status=completed" class="btn <%= statusFilter === 'completed' ? 'active' : '' %>">Tamamlanan</a>
+                        <a href="/admin/orders?status=canceled" class="btn <%= statusFilter === 'canceled' ? 'active' : '' %>">Ləğv edilən</a>
+                        <a href="/admin/orders?status=paid_api_error" class="btn <%= statusFilter === 'paid_api_error' ? 'active' : '' %> text-danger">
+                            <i class="ri-error-warning-line"></i> API Xətası
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th style="width: 5%;">ID</th>
+                                <th style="width: 20%;">Müştəri</th>
+                                <th style="width: 10%;">Miqdar / Qiymət</th>
+                                <th style="width: 15%;">Link</th>
+                                <th style="width: 10%;">API ID</th>
+                                <th style="width: 12%;">Status</th>
+                                <th style="width: 10%;">Tarix</th>
+                                <th class="text-end" style="width: 18%;">Əməliyyatlar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% if (orders.length === 0) { %>
+                                <tr>
+                                    <td colspan="8" class="text-center py-5 text-muted">
+                                        <div class="fs-1 mb-2"><i class="ri-inbox-2-line"></i></div>
+                                        Sifariş tapılmadı
+                                    </td>
+                                </tr>
+                            <% } %>
+                            
+                            <% orders.forEach(order => { %>
+                                <tr>
+                                    <td><span class="fw-bold text-primary">#<%= order.id %></span></td>
+                                    <td>
+                                        <div class="fw-bold text-dark"><%= order.customer_name || 'Anonim' %></div>
+                                        <div class="text-muted" style="font-size: 0.75rem;"><i class="ri-mail-line"></i> <%= order.customer_email || 'Email yoxdur' %></div>
+                                        <div class="text-muted" style="font-size: 0.75rem;"><i class="ri-phone-line"></i> <%= order.customer_phone || 'Nömrə yoxdur' %></div>
+                                    </td>
+                                    <td>
+                                        <div class="fw-semibold text-dark"><%= order.quantity %> ədəd</div>
+                                        <div class="text-success fw-bold"><%= order.price %> ₼</div>
+                                    </td>
+                                    <td>
+                                        <a href="<%= order.link %>" target="_blank" class="text-truncate d-inline-block text-primary text-decoration-none" style="max-width: 140px;" title="<%= order.link %>">
+                                            <%= order.link %>
+                                        </a>
+                                        <div class="text-muted mt-1" style="font-size: 0.7rem;">Xidmət ID: <%= order.api_service_id %></div>
+                                    </td>
+                                    <td>
+                                        <% if(order.api_order_id) { %>
+                                            <span class="badge bg-light text-dark border px-2 py-1"><i class="ri-barcode-box-line"></i> <%= order.api_order_id %></span>
+                                        <% } else { %>
+                                            <span class="text-muted">—</span>
+                                        <% } %>
+                                    </td>
+                                    <td>
+                                        <% if (order.status === 'pending') { %>
+                                            <span class="badge-soft badge-soft-warning"><i class="ri-time-line"></i> Gözləyir</span>
+                                        <% } else if (order.status === 'processing') { %>
+                                            <span class="badge-soft badge-soft-info"><i class="ri-loader-4-line"></i> İcrada</span>
+                                        <% } else if (order.status === 'completed') { %>
+                                            <span class="badge-soft badge-soft-success"><i class="ri-check-double-line"></i> Tamamlandı</span>
+                                        <% } else if (order.status === 'canceled') { %>
+                                            <span class="badge-soft badge-soft-danger"><i class="ri-close-circle-line"></i> Ləğv olundu</span>
+                                        <% } else if (order.status === 'paid_api_error') { %>
+                                            <span class="badge-soft badge-soft-dark text-danger border border-danger"><i class="ri-error-warning-fill"></i> API Xətası</span>
+                                        <% } %>
+                                    </td>
+                                    <td>
+                                        <div class="text-dark fw-medium" style="font-size: 0.8rem;"><%= new Date(order.created_at).toLocaleDateString('az-AZ') %></div>
+                                        <div class="text-muted" style="font-size: 0.75rem;"><%= new Date(order.created_at).toLocaleTimeString('az-AZ', {hour: '2-digit', minute:'2-digit'}) %></div>
+                                    </td>
+                                    <td class="text-end">
+                                        <div class="d-flex justify-content-end align-items-center gap-2">
+                                            
+                                            <% if (order.api_order_id) { %>
+                                                <a href="/admin/orders/sync/<%= order.id %>" class="btn btn-sm btn-light border text-secondary rounded-circle px-2" data-bs-toggle="tooltip" title="API Statusunu Yenilə">
+                                                    <i class="ri-refresh-line"></i>
+                                                </a>
+                                            <% } %>
+
+                                            <% if (order.status === 'paid_api_error' && !order.api_order_id) { %>
+                                                <form action="/admin/orders/retry-api/<%= order.id %>" method="POST" class="m-0" onsubmit="return confirm('Sifarişi yenidən TurkAPI-yə göndərmək istədiyinizə əminsiniz?');">
+                                                    <button type="submit" class="btn btn-sm btn-dark px-3 py-1 fw-medium shadow-sm" style="border-radius: 6px;">
+                                                        <i class="ri-send-plane-fill"></i> Göndər
+                                                    </button>
+                                                </form>
+                                            <% } %>
+                                            
+                                            <form action="/admin/orders/update-status/<%= order.id %>" method="POST" class="m-0">
+                                                <select name="status" onchange="this.form.submit()" class="form-select form-select-sm text-secondary bg-light border-0 shadow-sm fw-medium" style="border-radius: 6px; cursor: pointer; min-width: 110px;">
+                                                    <option value="" disabled selected>Status...</option>
+                                                    <option value="pending">Gözləyir</option>
+                                                    <option value="processing">İcrada</option>
+                                                    <option value="completed">Tamamla</option>
+                                                    <option value="canceled">Ləğv et</option>
+                                                    <option value="paid_api_error">API Xətası</option>
+                                                </select>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            <% }) %>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <% if (totalPages > 1) { %>
+                    <div class="card-footer bg-white border-0 py-3 px-4 rounded-bottom">
+                        <nav>
+                            <ul class="pagination pagination-sm justify-content-end mb-0">
+                                <% for(let i = 1; i <= totalPages; i++) { %>
+                                    <li class="page-item <%= currentPage === i ? 'active' : '' %>">
+                                        <a class="page-link shadow-none <%= currentPage === i ? 'bg-dark border-dark' : 'text-dark' %>" href="/admin/orders?page=<%= i %>&status=<%= statusFilter %>"><%= i %></a>
+                                    </li>
+                                <% } %>
+                            </ul>
+                        </nav>
+                    </div>
+                <% } %>
+            </div>
+
+        </div> </div> <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Tooltipləri aktivləşdirmək üçün
+        document.addEventListener("DOMContentLoaded", function() {
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl)
+            })
+        });
+    </script>
+</body>
+</html>

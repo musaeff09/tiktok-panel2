@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Giriş</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+       .login-box {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            width: 100%;
+            max-width: 400px;
+            backdrop-filter: blur(10px);
+        }
+       .login-box h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #00ff88;
+        }
+       .form-group {
+            margin-bottom: 20px;
+        }
+       .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #aaa;
+            font-size: 14px;
+        }
+       .form-group input {
+            width: 100%;
+            padding: 14px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            color: #fff;
+            font-size: 15px;
+        }
+       .form-group input:focus {
+            outline: none;
+            border-color: #00ff88;
+        }
+       .btn-login {
+            width: 100%;
+            padding: 14px;
+            background: #00ff88;
+            color: #000;
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+       .btn-login:hover {
+            background: #00e676;
+            transform: translateY(-2px);
+        }
+       .error {
+            background: rgba(255, 107, 107, 0.1);
+            border: 1px solid rgba(255, 107, 107, 0.3);
+            color: #ff6b6b;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-box">
+        <h2>Admin Panel</h2>
+        <% if (error) { %>
+            <div class="error"><%= error %></div>
+        <% } %>
+        <form method="POST">
+            <div class="form-group">
+                <label>İstifadəçi adı</label>
+                <input type="text" name="username" required>
+            </div>
+            <div class="form-group">
+                <label>Şifrə</label>
+                <input type="password" name="password" required>
+            </div>
+            <button type="submit" class="btn-login">Daxil Ol</button>
+        </form>
+    </div>
+</body>
+</html>

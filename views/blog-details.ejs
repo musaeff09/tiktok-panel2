@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="az">
+
+<head>
+    <!-- Analytics -->
+    <script defer src="https://umami.tiktok-panel.xyz/script.js" data-website-id="350f90e9-946e-4d6e-8980-8f768edc4481"></script>
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Language" content="az" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="theme-color" content="#e50075" />
+
+    <!-- Verification -->
+    <meta name="google-site-verification" content="6a0UStkZHtcP5GR8XJv52o2gIi5h4lAzpbdSE4afi4U" />
+    <meta name="msvalidate.01" content="16B13A896FAD3CC5AB0384ED4B6024C9" />
+
+    <!-- SEO -->
+    <title>
+        <%= post.title %> | Tiktok-Panel.xyz
+    </title>
+    <meta name="description" content="<%= post.excerpt || post.title %>" />
+    <meta name="keywords" content="<%= post.category %>, <%= post.title %>, tiktok izləyici, smm panel" />
+    <link rel="canonical" href="https://tiktok-panel.xyz/blog/<%= post.slug %>" />
+    <meta name="author" content="tiktok-panel.xyz" />
+    <meta name="geo.region" content="AZ-BAK" />
+    <meta name="geo.placename" content="Baku" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://tiktok-panel.xyz/blog/<%= post.slug %>" />
+    <meta property="og:site_name" content="tiktok-panel.xyz" />
+    <meta property="og:locale" content="az_AZ" />
+    <meta property="og:title" content="<%= post.title %>" />
+    <meta property="og:description" content="<%= post.excerpt || post.title %>" />
+    <meta property="og:image" content="<%= post.featured_image || 'https://tiktok-panel.xyz/imgs/logo.png' %>" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="<%= post.title %>" />
+    <meta name="twitter:description" content="<%= post.excerpt || post.title %>" />
+    <meta name="twitter:image" content="<%= post.featured_image || 'https://tiktok-panel.xyz/imgs/logo.png' %>" />
+
+    <!-- Favicon -->
+    <link rel="icon" href="/imgs/logo.png" type="image/png" />
+    <link rel="apple-touch-icon" href="/imgs/logo.png" />
+
+    <!-- Fonts & CSS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.css"
+        integrity="sha512-kJlvECunwXftkPwyvHbclArO8wszgBGisiLeuDFwNM8ws+wKIw0sv1os3ClWZOcrEB2eRXULYUsm8OVRGJKwGA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/css/style.css" />
+
+    <!-- Structured Data: BlogPosting -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "<%- post.title %>",
+      "description": "<%- post.excerpt || post.title %>",
+      "url": "https://tiktok-panel.xyz/blog/<%= post.slug %>",
+      "datePublished": "<%= new Date(post.created_at).toISOString() %>",
+      "dateModified": "<%= new Date(post.updated_at || post.created_at).toISOString() %>",
+      "author": {
+        "@type": "Organization",
+        "name": "Tiktok-Panel.xyz"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "tiktok-panel.xyz",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://tiktok-panel.xyz/imgs/logo.png"
+        }
+      },
+      "image": "<%= post.featured_image || 'https://tiktok-panel.xyz/imgs/logo.png' %>",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://tiktok-panel.xyz/blog/<%= post.slug %>"
+      }
+    }
+    </script>
+
+    <!-- Structured Data: Breadcrumb -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Ana səhifə",
+          "item": "https://tiktok-panel.xyz/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Blog",
+          "item": "https://tiktok-panel.xyz/blog"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "<%- post.title %>",
+          "item": "https://tiktok-panel.xyz/blog/<%= post.slug %>"
+        }
+      ]
+    }
+    </script>
+</head>
+
+<body>
+    <header class="header">
+        <!-- Top Support Bar -->
+        <div class="top-bar">
+            <div class="container flex-between">
+                <div class="contact-info">
+                    <a href="mailto:support@tiktok-panel.xyz"><i class="ri-mail-line"></i> support@tiktok-panel.xyz</a>
+
+                </div>
+                <div class="site-info">
+                    <a href="/about"><i class="ri-information-line"></i> Haqqımızda</a>
+                    <a href="/contact"><i class="ri-customer-service-2-line"></i> Əlaqə</a>
+                    <a href="/privacy"><i class="ri-shield-check-line"></i> Məxfilik</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Navigation -->
+        <nav class="main-nav">
+            <div class="container flex-between">
+                <!-- 1. Logo -->
+                <div class="logo">
+                    <img src="/imgs/logo.png" alt="logo">
+                    <a href="/" class="logoText">Tiktok-<span>Panel.com</span></a>
+                </div>
+
+                <!-- 2. Menu & Mobile Toggle -->
+                <div class="menu-wrapper">
+                    <div class="search-toggle" id="mobile-menu-trigger">
+                        <i class="ri-search-line"></i>
+                    </div>
+
+                    <div class="menu" id="nav-list">
+                        <div class="menu-content">
+                            <!-- Mobil üçün daxili axtarış (Yeni) -->
+                            <div class="close-menu" id="close-menu-btn">
+                                <i class="ri-close-line"></i>
+                            </div>
+                            <div class="mobile-search-area">
+                                <div class="search-input-wrapper">
+                                    <i class="ri-search-line"></i>
+                                    <input type="text" placeholder="Platforma axtar...">
+                                </div>
+                                <div class="trending-searches">
+                                    <p>Çox axtarılanlar:</p>
+                                    <div class="tags">
+                                        <span class="tag">TikTok</span>
+                                        <span class="tag">Instagram</span>
+                                        <span class="tag">YouTube</span>
+                                    </div>
+                                </div>
+                                <div class="search-results-area">
+                                    <!-- Nəticələr bura gələcək -->
+                                    <p>Axtarış nəticəsi yoxdur...</p>
+                                </div>
+                            </div>
+
+                            <!-- Əsas Linklər -->
+                            <ul class="nav-links">
+                                <li><a href="/" class="active"><i class="ri-home-4-line"></i> Ana Səhifə</a></li>
+                                <li><a href="/platforms"><i class="ri-service-line"></i> Xidmətlər</a></li>
+                                <li><a href="/blog"><i class="ri-news-line"></i> Blog</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Axtarış Bölməsi (Desktop) -->
+                <div class="search-box-container">
+                    <div class="search-box">
+                        <input type="text" placeholder="Platforma axtar..." id="desktop-search">
+                        <button><i class="ri-search-line"></i></button>
+                    </div>
+                    <!-- Axtarış nəticələri pəncərəsi -->
+                    <div class="desktop-search-results" id="desktop-results">
+                        <p class="search-title">Populyar Xidmətlər</p>
+                        <div class="quick-links">
+                            <a href="/tiktok">TikTok</a>
+                            <a href="/instagram">Instagram</a>
+                            <a href="/youtube">YouTube</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Mobile Bottom Navigation -->
+        <div class="bottom-nav">
+            <a href="/" class="bottom-item active">
+                <i class="ri-home-4-line"></i>
+                <span>Ana Səhifə</span>
+            </a>
+            <a href="/contact" class="bottom-item">
+                <i class="ri-customer-service-2-line"></i>
+                <span>Əlaqə</span>
+            </a>
+            <a href="/platforms" class="bottom-item circle-item">
+                <i class="ri-service-line"></i>
+                <br> <span>Xidmətlər</span>
+            </a>
+            <a href="/blog" class="bottom-item">
+                <i class="ri-news-line"></i>
+                <span>Blog</span>
+            </a>
+            <a href="/about" class="bottom-item">
+                <i class="ri-information-line"></i>
+                <span>Haqqımızda</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-route-header">
+        <div class="container">
+            <div class="route-content">
+                <nav class="breadcrumb-simple">
+                    <a href="/">Ana Səhifə</a>
+                    <i class="ri-arrow-right-s-line"></i>
+                    <a href="/blog">Blog</a>
+                    <i class="ri-arrow-right-s-line"></i>
+                    <span class="current">
+                        <%= post.category %>
+                    </span>
+                </nav>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Details Section -->
+    <section class="blog-details-section">
+        <div class="container">
+            <div class="blog-details-grid">
+                <!-- Main Content -->
+                <article class="blog-details-content">
+                    <div class="article-header">
+                        <div class="article-category">
+                            <i class="ri-price-tag-3-line"></i>
+                            <%= post.category %>
+                        </div>
+                        <h1>
+                            <%= post.title %>
+                        </h1>
+
+                        <div class="article-meta">
+                            <div class="author-info">
+                                <img src="/imgs/logo.png" alt="Author">
+                                <h3><b>Tiktok-Panel.xyz</b></h3>
+                                <div>
+                                    <span class="author-name">
+                                        <%= post.author %>
+                                    </span>
+                                    <span class="post-date"><i class="ri-calendar-line"></i>
+                                        <%= new Date(post.created_at).toLocaleDateString('az-AZ', { day: 'numeric' ,
+                                            month: 'long' , year: 'numeric' }) %>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="article-stats">
+                                <span><i class="ri-eye-line"></i>
+                                    <%= post.views.toLocaleString() %>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <% if (post.featured_image) { %>
+                        <div class="article-featured-img">
+                            <img src="<%= post.featured_image %>" alt="<%= post.title %>">
+                        </div>
+                        <% } %>
+
+                            <div class="article-body">
+                                <%- post.content %>
+                            </div>
+
+                            <!-- Share Buttons -->
+                            <div class="article-share">
+                                <span>Paylaş:</span>
+                                <div class="share-buttons">
+                                    <a href="https://www.facebook.com/sharer/sharer.php?u=<%= encodeURIComponent('https://tiktok-panel.xyz/blog/' + post.slug) %>"
+                                        target="_blank" class="share-btn facebook"><i class="ri-facebook-fill"></i></a>
+                                    <a href="https://twitter.com/intent/tweet?url=<%= encodeURIComponent('https://tiktok-panel.xyz/blog/' + post.slug) %>&text=<%= encodeURIComponent(post.title) %>"
+                                        target="_blank" class="share-btn twitter"><i class="ri-twitter-fill"></i></a>
+                                    <a href="https://wa.me/?text=<%= encodeURIComponent(post.title + ' https://tiktok-panel.xyz/blog/' + post.slug) %>"
+                                        target="_blank" class="share-btn whatsapp"><i class="ri-whatsapp-fill"></i></a>
+                                    <a href="https://t.me/share/url?url=<%= encodeURIComponent('https://tiktok-panel.xyz/blog/' + post.slug) %>&text=<%= encodeURIComponent(post.title) %>"
+                                        target="_blank" class="share-btn telegram"><i class="ri-telegram-fill"></i></a>
+                                    <a href="#" class="share-btn copy"
+                                        onclick="navigator.clipboard.writeText('https://tiktok-panel.xyz/blog/<%= post.slug %>'); alert('Link kopyalandı!'); return false;"><i
+                                            class="ri-link"></i></a>
+                                </div>
+                            </div>
+                </article>
+
+                <!-- Sidebar -->
+                <aside class="blog-sidebar">
+                    <!-- Related Posts -->
+                    <% if (related && related.length> 0) { %>
+                        <div class="sidebar-card">
+                            <h4 class="sidebar-title"><i class="ri-fire-line"></i> Oxşar Məqalələr</h4>
+                            <div class="related-posts">
+                                <% related.forEach(r=> { %>
+                                    <a href="/blog/<%= r.slug %>" class="related-post">
+                                        <img src="<%= r.featured_image || 'https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=100' %>"
+                                            alt="<%= r.title %>">
+                                        <div>
+                                            <h5>
+                                                <%= r.title %>
+                                            </h5>
+                                            <span>
+                                                <%= new Date(r.created_at).toLocaleDateString('az-AZ', { day: 'numeric'
+                                                    , month: 'short' , year: 'numeric' }) %>
+                                            </span>
+                                        </div>
+                                    </a>
+                                    <% }) %>
+                            </div>
+                            <% } %>
+
+                                <!-- Categories -->
+                                <div class="sidebar-card">
+                                    <h4 class="sidebar-title"><i class="ri-folder-line"></i> Platformalarımız</h4>
+                                    <ul class="category-list">
+                                        <li><a href="/tiktok">TikTok</a></li>
+                                        <li><a href="/instagram">Instagram</a></li>
+                                        <li><a href="/youtube">YouTube</a></li>
+                                        <li><a href="/telegram">Telegram</a></li>
+                                    </ul>
+                                </div>
+                </aside>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Start -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <!-- 1. Logo + About -->
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <img src="/imgs/logo.png" alt="logo">
+                        <a href="/" class="logoText">Tiktok-<span>Panel.com</span></a>
+                    </div>
+                    <p class="footer-desc">
+                        Azərbaycanda ən sürətli və etibarlı sosial media xidmətləri. TikTok, Instagram, YouTube üçün
+                        keyfiyyətli izləyici, bəyənmə və baxış.
+                    </p>
+                    <div class="footer-socials">
+                        <a href="https://www.instagram.com/tiktok_panelcom/" aria-label="Instagram"><i
+                                class="ri-instagram-line"></i></a>
+                        <a href="https://www.tiktok.com/@tiktok_panel.com" aria-label="TikTok"><i
+                                class="ri-tiktok-fill"></i></a>
+                    </div>
+                </div>
+
+                <!-- 2. Sürətli Keçidlər -->
+                <div class="footer-col">
+                    <h4 class="footer-title">Sürətli Keçidlər</h4>
+                    <ul class="footer-links">
+                        <li><a href="/about"><i class="ri-arrow-right-s-line"></i> Haqqımızda</a></li>
+                        <li><a href="/platforms"><i class="ri-arrow-right-s-line"></i> Xidmətlər</a></li>
+                        <li><a href="/contact"><i class="ri-arrow-right-s-line"></i> Əlaqə</a></li>
+                        <li><a href="/blog"><i class="ri-arrow-right-s-line"></i> Bloq</a></li>
+                    </ul>
+                </div>
+
+                <!-- 3. Xidmətlər -->
+                <div class="footer-col">
+                    <h4 class="footer-title">Populyar Platformalar</h4>
+                    <ul class="footer-links">
+                        <li><a href="/tiktok"><i class="ri-arrow-right-s-line"></i> TikTok</a></li>
+                        <li><a href="/instagram"><i class="ri-arrow-right-s-line"></i> Instagram</a></li>
+                        <li><a href="/youtube"><i class="ri-arrow-right-s-line"></i> YouTube</a></li>
+                        <li><a href="/telegram"><i class="ri-arrow-right-s-line"></i> Telegram</a></li>
+                        <li><a href="/platforms"><i class="ri-arrow-right-s-line"></i> Bütün Xidmətlər</a></li>
+                    </ul>
+                </div>
+
+                <!-- 4. Əlaqə -->
+                <div class="footer-col">
+                    <h4 class="footer-title">Əlaqə Saxla</h4>
+                    <ul class="footer-contact">
+                        <li>
+                            <i class="ri-mail-send-line"></i>
+                            <div>
+                                <span>Email</span>
+                                <a href="mailto:support@tiktok-panel.xyz">support@tiktok-panel.xyz</a>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="ri-time-line"></i>
+                            <div>
+                                <span>İş saatları</span>
+                                <p>24/7 Dəstək</p>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="ri-customer-service-2-fill"></i>
+                            <div>
+                                <span>Canlı Dəstək</span>
+                                <a href="/contact">Dəstək bölməsi</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Bar -->
+        <div class="footer-bottom">
+            <div class="container flex-between">
+                <p class="copyright">
+                    © 2026 Tiktok-Panel.xyz — Bütün hüquqlar qorunur.
+                </p>
+                <div class="footer-bottom-links">
+                    <a href="/privacy">Məxfilik Siyasəti</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/js/script.js"></script>
+</body>
+
+</html>

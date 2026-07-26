@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="az">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Admin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.css">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.03);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            color: #00ff88;
+            font-size: 24px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            background: #00ff88;
+            color: #000;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn:hover {
+            background: #00e676;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .posts-table {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 16px;
+            text-align: left;
+            font-weight: 600;
+            color: #aaa;
+            font-size: 13px;
+            text-transform: uppercase;
+        }
+
+        td {
+            padding: 16px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .status {
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .status.published {
+            background: rgba(0, 255, 136, 0.2);
+            color: #00ff88;
+        }
+
+        .status.draft {
+            background: rgba(255, 170, 0, 0.2);
+            color: #ffaa00;
+        }
+
+        .actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 13px;
+            border-radius: 6px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .btn-edit {
+            background: #2196f3;
+            color: #fff;
+        }
+
+        .btn-delete {
+            background: #ff5252;
+            color: #fff;
+        }
+
+        .alert {
+            padding: 14px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .alert-success {
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            color: #00ff88;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <h1><i class="ri-article-line"></i> Blog İdarəetmə</h1>
+        <div>
+            <a href="/admin/services" class="btn" style="background:#2196f3;"><i class="ri-service-line"></i>
+                Xidmətlər</a>
+            <a href="/admin/orders" class="btn" style="background:#2196f3;"><i class="ri-shopping-bag-3-line"></i>
+                Sifarişlər</a>
+            <a href="/admin/add" class="btn"><i class="ri-add-line"></i> Yeni Məqalə</a>
+            <a href="/admin/logout" class="btn" style="background: #ff5252; margin-left: 10px;">Çıxış</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <% if (typeof saved!=='undefined' ) { %>
+            <div class="alert alert-success">Məqalə yadda saxlanıldı</div>
+            <% } %>
+
+                <% if (typeof deleted!=='undefined' ) { %>
+                    <div class="alert alert-success">Məqalə silindi</div>
+                    <% } %>
+
+                        <div class="posts-table">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Başlıq</th>
+                                        <th>Kateqoriya</th>
+                                        <th>Status</th>
+                                        <th>Baxış</th>
+                                        <th>Tarix</th>
+                                        <th>Əməliyyat</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% posts.forEach(post=> { %>
+                                        <tr>
+                                            <td>
+                                                <%= post.id %>
+                                            </td>
+                                            <td>
+                                                <strong>
+                                                    <%= post.title %>
+                                                </strong>
+                                                <% if (post.is_featured) { %>
+                                                    <i class="ri-star-fill" style="color: #ffaa00;"></i>
+                                                    <% } %>
+                                            </td>
+                                            <td>
+                                                <%= post.category %>
+                                            </td>
+                                            <td><span class="status <%= post.status %>">
+                                                    <%= post.status %>
+                                                </span></td>
+                                            <td>
+                                                <%= post.views.toLocaleString() %>
+                                            </td>
+                                            <td>
+                                                <%= new Date(post.created_at).toLocaleDateString('az-AZ') %>
+                                            </td>
+                                            <td>
+                                                <div class="actions">
+                                                    <a href="/admin/edit/<%= post.id %>" class="btn-sm btn-edit">
+                                                        <i class="ri-edit-line"></i>
+                                                    </a>
+                                                    <a href="/admin/delete/<%= post.id %>" class="btn-sm btn-delete"
+                                                        onclick="return confirm('Silmək istəyirsən?')">
+                                                        <i class="ri-delete-bin-line"></i>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <% }) %>
+                                </tbody>
+                            </table>
+                        </div>
+    </div>
+</body>
+
+</html>

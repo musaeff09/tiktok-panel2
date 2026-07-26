@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xidmətlər - Admin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.css">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+    <style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:'Quicksand',sans-serif;background:#0a0a0a;color:#fff}.header{background:rgba(255,255,255,.03);border-bottom:1px solid rgba(255,255,255,.1);padding:20px 40px;display:flex;justify-content:space-between;align-items:center}.header h1{color:#00ff88;font-size:24px}.btn{padding:10px 20px;background:#00ff88;color:#000;border:none;border-radius:8px;font-weight:600;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:6px}.btn:hover{background:#00e676}.container{max-width:1400px;margin:40px auto;padding:0 20px}.posts-table{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.1);border-radius:16px;overflow:hidden}table{width:100%;border-collapse:collapse}th{background:rgba(255,255,255,.05);padding:16px;text-align:left;font-weight:600;color:#aaa;font-size:13px;text-transform:uppercase}td{padding:16px;border-top:1px solid rgba(255,255,255,.05)}.status{padding:4px 12px;border-radius:50px;font-size:12px;font-weight:600}.status.active{background:rgba(0,255,136,.2);color:#00ff88}.status.passive{background:rgba(255,82,82,.2);color:#ff5252}.actions{display:flex;gap:8px}.btn-sm{padding:6px 12px;font-size:13px;border-radius:6px;text-decoration:none;display:inline-flex;align-items:center}.btn-edit{background:#2196f3;color:#fff}.btn-delete{background:#ff5252;color:#fff}.alert{padding:14px;border-radius:8px;margin-bottom:20px}.alert-success{background:rgba(0,255,136,.1);border:1px solid rgba(0,255,136,.3);color:#00ff88}</style>
+</head>
+<body>
+    <div class="header">
+        <h1><i class="ri-service-line"></i> Populyar Xidmətlər</h1>
+        <div>
+            <a href="/admin" class="btn" style="background:#666;"><i class="ri-arrow-left-line"></i> Blog</a>
+            <a href="/admin/services/add" class="btn"><i class="ri-add-line"></i> Yeni Xidmət</a>
+            <a href="/admin/logout" class="btn" style="background:#ff5252;margin-left:10px;">Çıxış</a>
+        </div>
+    </div>
+    <div class="container">
+        <% if (query.saved) { %><div class="alert alert-success">Xidmət yadda saxlanıldı</div><% } %>
+        <% if (query.deleted) { %><div class="alert alert-success">Xidmət silindi</div><% } %>
+        <div class="posts-table">
+            <table>
+                <thead><tr><th>ID</th><th>Platform</th><th>Ad</th><th>Qiymət</th><th>Sıra</th><th>Status</th><th>Əməliyyat</th></tr></thead>
+                <tbody>
+                <% services.forEach(s => { %>
+                <tr>
+                    <td><%= s.id %></td>
+                    <td><strong><%= s.platform %></strong></td>
+                    <td><%= s.name %></td>
+                    <td><%= Number(s.price).toFixed(2) %> ₼</td>
+                    <td><%= s.sort_order %></td>
+                    <td><span class="status <%= s.is_active? 'active' : 'passive' %>"><%= s.is_active? 'Aktiv' : 'Passiv' %></span></td>
+                    <td><div class="actions">
+                        <a href="/admin/services/edit/<%= s.id %>" class="btn-sm btn-edit"><i class="ri-edit-line"></i></a>
+                        <a href="/admin/services/delete/<%= s.id %>" class="btn-sm btn-delete" onclick="return confirm('Silmək?')"><i class="ri-delete-bin-line"></i></a>
+                    </div></td>
+                </tr>
+                <% }) %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

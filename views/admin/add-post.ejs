@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= post? 'Məqaləni Redaktə Et' : 'Yeni Məqalə' %></title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.css">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Quicksand', sans-serif; background: #0a0a0a; color: #fff; }
+        .header { background: rgba(255, 255, 255, 0.03); border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; }
+        .header h1 { color: #00ff88; font-size: 24px; }
+        .btn { padding: 10px 20px; background: #00ff88; color: #000; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; text-decoration: none; }
+        .container { max-width: 900px; margin: 40px auto; padding: 0 20px; }
+        .form-card { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px; padding: 30px; }
+        .form-group { margin-bottom: 24px; }
+        .form-group label { display: block; margin-bottom: 8px; color: #aaa; font-size: 14px; font-weight: 600; }
+        .form-group input,.form-group textarea,.form-group select { width: 100%; padding: 12px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; color: #fff; font-size: 15px; font-family: inherit; }
+        .form-group textarea { min-height: 300px; resize: vertical; }
+        .form-group input:focus,.form-group textarea:focus,.form-group select:focus { outline: none; border-color: #00ff88; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .checkbox-group { display: flex; align-items: center; gap: 10px; }
+        .checkbox-group input { width: auto; }
+        .btn-submit { width: 100%; padding: 14px; background: #00ff88; color: #000; border: none; border-radius: 10px; font-weight: 700; font-size: 16px; cursor: pointer; }
+        .btn-submit:hover { background: #00e676; }
+        .hint { font-size: 12px; color: #666; margin-top: 4px; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1><%= post? 'Məqaləni Redaktə Et' : 'Yeni Məqalə' %></h1>
+        <a href="/admin" class="btn"><i class="ri-arrow-left-line"></i> Geri</a>
+    </div>
+
+    <div class="container">
+        <div class="form-card">
+            <form method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label>Başlıq</label>
+                    <input type="text" name="title" value="<%= post? post.title : '' %>" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Kateqoriya</label>
+                        <input type="text" name="category" list="categories" value="<%= post? post.category : '' %>" placeholder="TikTok" required>
+                        <datalist id="categories">
+                            <option value="TikTok">
+                            <option value="Instagram">
+                            <option value="YouTube">
+                            <option value="Telegram">
+                            <option value="Marketing">
+                            <option value="Xəbərlər">
+                            <option value="Bələdçi">
+                        </datalist>
+                        <div class="hint">öz kateqoriyanı yaz</div>
+                    </div>
+                    <div class="form-group">
+                        <label>Status</label>
+                        <select name="status" required>
+                            <option value="draft" <%= post && post.status === 'draft'? 'selected' : '' %>>Qaralama</option>
+                            <option value="published" <%= post && post.status === 'published'? 'selected' : '' %>>Yayımla</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Qısa məzmun (Excerpt)</label>
+                    <textarea name="excerpt" rows="3"><%= post? post.excerpt : '' %></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Məzmun (HTML dəstəkləyir)</label>
+                    <textarea name="content" required><%= post? post.content : '' %></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Featured Şəkil</label>
+                    <input type="file" name="featured_image" accept="image/*">
+                    <% if (post && post.featured_image) { %>
+                        <p style="margin-top: 8px; color: #aaa; font-size: 13px;">Hazırki: <%= post.featured_image %></p>
+                    <% } %>
+                </div>
+
+                <div class="form-group">
+                    <label>Oxuma müddəti (dəqiqə)</label>
+                    <input type="number" name="read_time" value="<%= post? post.read_time : 5 %>" min="1">
+                </div>
+
+                <div class="form-group">
+                    <div class="checkbox-group">
+                        <input type="checkbox" name="is_featured" id="is_featured" <%= post && post.is_featured? 'checked' : '' %>>
+                        <label for="is_featured" style="margin: 0;">Featured məqalə et</label>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-submit">
+                    <i class="ri-save-line"></i> Yadda Saxla
+                </button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
